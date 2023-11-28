@@ -8,6 +8,10 @@ module UuidV7
       after_initialize :set_uniq_identifier
     end
 
+    def uuid_to_int
+      Convertor.uuid_to_int(uuid)
+    end
+
     protected
 
     def set_uniq_identifier
