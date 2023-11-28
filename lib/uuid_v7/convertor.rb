@@ -28,6 +28,14 @@ module UuidV7
 
         "#{b16[0...8]}-#{b16[8...12]}-#{b16[12...16]}-#{b16[16...20]}-#{b16[20...32]}"
       end
+
+      def binary_to_base58(binary)
+        Base58.binary_to_base58(binary.force_encoding("BINARY"))
+      end
+
+      def base58_to_binary(base58)
+        Base58.base58_to_binary(base58)
+      end
     end
   end
 end
