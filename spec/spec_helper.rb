@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "uuid_v7"
+require "active_record"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,3 +14,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+Dir["./spec/support/**/*.rb"].each { |f| require f }
