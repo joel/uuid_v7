@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
 
   spec.add_dependency "activerecord"
+  spec.add_dependency "base58"
   spec.add_dependency "securerandom"
   spec.add_dependency "zeitwerk"
 

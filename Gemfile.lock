@@ -3,6 +3,7 @@ PATH
   specs:
     uuid_v7 (0.1.0)
       activerecord
+      base58
       securerandom
       zeitwerk
 
@@ -26,6 +27,7 @@ GEM
       mutex_m
       tzinfo (~> 2.0)
     ast (2.4.2)
+    base58 (0.2.3)
     base64 (0.2.0)
     bigdecimal (3.1.5)
     concurrent-ruby (1.2.2)
@@ -118,6 +120,7 @@ CHECKSUMS
   activerecord (7.1.2) sha256=7e7305deb74ee4e924815b90b53bdc5fe79fcfb09fb4d8d66a02a581b1f92b34
   activesupport (7.1.2) sha256=5bd81ef71524a14725ecb6c3b07bfc00ae0ccc77dd611190bd93bd9f92abd0d0
   ast (2.4.2) sha256=1e280232e6a33754cde542bc5ef85520b74db2aac73ec14acef453784447cc12
+  base58 (0.2.3) sha256=fda5c5d3bda8b429ad0d1a5309c2d1e488ba46f0a2ab99a639890f26c61bf3be
   base64 (0.2.0) sha256=0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507
   bigdecimal (3.1.5)
   concurrent-ruby (1.2.2) sha256=3879119b8b75e3b62616acc256c64a134d0b0a7a9a3fcba5a233025bcde22c4f
