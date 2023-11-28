@@ -46,6 +46,19 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
+    rubocop-capybara (2.19.0)
+      rubocop (~> 1.41)
+    rubocop-factory_bot (2.24.0)
+      rubocop (~> 1.33)
+    rubocop-performance (1.19.1)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rake (0.6.0)
+      rubocop (~> 1.0)
+    rubocop-rspec (2.25.0)
+      rubocop (~> 1.40)
+      rubocop-capybara (~> 2.17)
+      rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
     unicode-display_width (2.5.0)
     zeitwerk (2.6.12)
@@ -57,6 +70,9 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
+  rubocop-performance
+  rubocop-rake
+  rubocop-rspec
   uuid_v7!
 
 CHECKSUMS
@@ -78,6 +94,11 @@ CHECKSUMS
   rspec-support (3.12.1) sha256=f969b85d0068ff97bc47c9d6fc2bca9706d73406f2b4e5d3b346443d8734c8cf
   rubocop (1.57.2) sha256=8f679dfe42d7821dc61dafb17d14b1294343157a197b9f8a23720ca17fb9161b
   rubocop-ast (1.30.0) sha256=faad6452b1018fee0dd9e21a44445908e94ee2a4435932a9dae0e0740b6349b3
+  rubocop-capybara (2.19.0) sha256=fa329e0f185be313fa5dabd6056f83a718db7f4a259aa97fc287a40254899ccb
+  rubocop-factory_bot (2.24.0) sha256=3018d350315277200c31c98a5297c9d19463536c04bdeba0a75a512e3975e9f8
+  rubocop-performance (1.19.1) sha256=52664172d944eb45d478ed6d04c8b02c36cf0ee15726fabb6c90a95ca5cdfadf
+  rubocop-rake (0.6.0) sha256=56b6f22189af4b33d4f4e490a555c09f1281b02f4d48c3a61f6e8fe5f401d8db
+  rubocop-rspec (2.25.0) sha256=083f8a0481dbb9969b2a9eae85670a454fe91d46812e6ec97b34e7f6227b99f3
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   unicode-display_width (2.5.0) sha256=7e7681dcade1add70cb9fda20dd77f300b8587c81ebbd165d14fd93144ff0ab4
   uuid_v7 (0.1.0)
