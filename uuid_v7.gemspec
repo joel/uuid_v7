@@ -34,10 +34,11 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
 
-  spec.add_dependency "activerecord"
-  spec.add_dependency "base58"
-  spec.add_dependency "securerandom"
-  spec.add_dependency "zeitwerk"
+  spec.add_dependency "activerecord", "~> 7.0"
+  spec.add_dependency "base58", "~> 0.2.3" # Used to convert between integers and base58 strings.
+  spec.add_dependency "mysql-binuuid-rails", "~> 1.3" # Automatically converts uuids to binary format in mysql
+  spec.add_dependency "securerandom", "~> 0.3.0" # Needed for SecureRandom.uuid_v7 until we upgrade to Ruby 3.3
+  spec.add_dependency "zeitwerk", "~> 2.5" # Used to autoload classes
 
   # spec.add_dependency "example-gem", "~> 1.0"
 

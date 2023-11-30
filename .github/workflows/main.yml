@@ -9,12 +9,14 @@ on:
 
 jobs:
   build:
+    env:
+      MYSQL_PASSWORD: root
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby:
-          - '3.3.0'
+          - '3.2.2'
 
     steps:
     - uses: actions/checkout@v4
@@ -23,5 +25,7 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+    - name: Set up MySQL
+      run: sudo /etc/init.d/mysql start
     - name: Run the default task
       run: bundle exec rake
