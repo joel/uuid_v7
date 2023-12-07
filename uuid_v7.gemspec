@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Provides UUID V7 support for Ruby on Rails applications using Mysql and Sqlite."
   spec.description = "uuid_v7 enables UUID V7 as primary keys in Rails, optimized for Mysql and Sqlite, with efficient migration and integration features."
 
-  spec.homepage = "https://github.com/alliantist/uuid_v7"
+  spec.homepage = "https://github.com/joel/uuid_v7"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.1"
 

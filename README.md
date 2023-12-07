@@ -140,4 +140,4 @@ end
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/alliantist/uuid_v7].
+Bug reports and pull requests are welcome on GitHub at [https://github.com/joel/uuid_v7].
