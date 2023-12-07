@@ -5,6 +5,12 @@
 
 **Note:** PostgreSQL users do not require this gem as PostgreSQL supports UUID natively.
 
+## Supported databases
+
+Mysql and SQLite
+
+NOTE: Postgresql support natively UUID
+
 ## Features
 - Converts UUID V7 CHAR(36) to a more efficient CHAR(32) and stores it in BINARY(16) for performance enhancement.
 - Integrates seamlessly with `ActiveRecord::Base`, enabling UUID as the primary key for models.
