@@ -146,7 +146,15 @@ Bug reports and pull requests are welcome on GitHub at [https://github.com/joel/
 
 After checking out the repo, run `bin/setup` to install dependencies.
 
-Then, run `DEBUG=true bundle exec` or `DEBUG=true DATABASE=mysql bundle exec rake`
+Then, run `DEBUG=true bundle exec rake`, this run the code against SQLite.
+
+For Mysql, please setup the database as follow:
+
+`docker run --rm --name mysql-uuid-v7-test --publish 3308:3306 --env MYSQL_ALLOW_EMPTY_PASSWORD=yes -d mysql:latest`
+
+and run
+
+`DEBUG=true MYSQL_HOST="0.0.0.0" MYSQL_PORT=3308 DATABASE=mysql bundle exec rake`
 
 ## Contributing
 
