@@ -5,16 +5,21 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in uuid_v7.gemspec
 gemspec
 
+gem "rake"
+gem "rspec"
+gem "rubocop"
 gem "rubocop-performance"
 gem "rubocop-rake"
 gem "rubocop-rspec"
 
-gem "rake", "~> 13.0"
+database = ENV["DATABASE"] || "sqlite3"
+case database
+when "sqlite3"
+  gem "sqlite3", "~> 1.6"
+when "mysql"
+  gem "mysql2", "~> 0.5.5"
+else
+  raise "Unsupported database: #{database}"
+end
 
-gem "rspec", "~> 3.0"
-
-gem "rubocop", "~> 1.21"
-
-gem "sqlite3", "~> 1.6"
-
-gem "mysql2", "~> 0.5.5"
+gem "database_cleaner-active_record"

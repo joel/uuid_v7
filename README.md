@@ -1,39 +1,143 @@
-# UuidV7
+# UUID V7 for Ruby on Rails
 
-TODO: Delete this and the text below, and describe your gem
+## Introduction
+`uuid_v7` is a RubyGem specifically designed to provide UUID V7 support for Mysql and Sqlite databases in Ruby on Rails applications. This gem is particularly useful because these databases lack a native type for supporting UUIDs.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/uuid_v7`. To experiment with that code, run `bin/console` for an interactive prompt.
+**Note:** PostgreSQL users do not require this gem as PostgreSQL supports UUID natively.
+
+## Features
+- Converts UUID V7 CHAR(36) to a more efficient CHAR(32) and stores it in BINARY(16) for performance enhancement.
+- Integrates seamlessly with `ActiveRecord::Base`, enabling UUID as the primary key for models.
+- Migration helper for easy transition to UUIDs in existing Rails applications, specifically tailored for Mysql.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'uuid_v7'
+```
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+And then execute:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```bash
+bundle install
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+Or install it yourself as:
+
+```bash
+gem install uuid_v7
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Basic Setup
 
-## Development
+Once installed, `uuid_v7` extends `ActiveRecord::Base` to use UUID as the primary key.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Foreign Keys
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Declare foreign key associations in your models as follows:
+
+```ruby
+class Author < ActiveRecord::Base
+  has_many :books
+end
+
+class Book < ActiveRecord::Base
+  attribute :author_id, :uuid_v7
+  belongs_to :author
+end
+```
+
+## Configuration
+
+### Custom Primary Key
+
+If your primary key is not `:id`, run:
+
+```bash
+rails generate uuid_v7:install
+```
+
+And configure:
+
+```ruby
+UuidV7.configure do |config|
+  config.field_name = :uuid
+end
+```
+
+### Implicit Inclusion Strategy
+
+By defaut the primary key type is overrided, if you want to prevent that behaviour toogle the strategy.
+
+in `config/initializers/uuid_v7.rb``
+
+```ruby
+UuidV7.configure do |config|
+  config.implicit_inclusion_strategy = false
+end
+```
+
+Then add manually to the model you want.
+
+```ruby
+class Author < ActiveRecord::Base
+  attribute :id, :uuid_v7, default: -> { SecureRandom.uuid_v7 }
+
+  has_many :books
+end
+```
+
+**Recommendation:** It's advised to use `:id` as the primary key with Rails for compatibility and convention.
+
+### Migrations
+
+#### Helper for Mysql
+
+`uuid_v7` provides a migration helper for Mysql. To add a UUID field to a model, run:
+
+```bash
+rails generate migration AddUuidToUser uuid:binary
+```
+
+Then use the helper in your migration file:
+
+```ruby
+class AddUuidToUser < ActiveRecord::Migration[7.1]
+  def change
+    # Add the field :uuid
+    populate_uuid_field(table_name: :users, column_name: :uuid)
+  end
+end
+```
+
+#### Custom Migration Template
+
+To override the default `:id` implementation in new migrations:
+
+```bash
+rails generate uuid_v7:migrations
+```
+
+A modified migration template will be available under `lib/templates/active_record/migration/create_table_migration.rb`.
+
+Example of a generated model migration:
+
+```ruby
+class AddAuthor < ActiveRecord::Migration[7.1]
+  def change
+    create_table :authors, id: false do |t|
+      t.binary :id, limit: 16, null: false, index: { unique: true }, primary_key: true
+      t.string :name
+      t.timestamps
+    end
+  end
+end
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/uuid_v7. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/uuid_v7/blob/main/CODE_OF_CONDUCT.md).
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the UuidV7 project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/uuid_v7/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at [https://github.com/alliantist/uuid_v7].

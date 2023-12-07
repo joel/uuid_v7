@@ -1,0 +1,46 @@
+# Source: https://github.com/rails/rails/blob/v7.1.2/activerecord/lib/rails/generators/active_record/migration/templates/create_table_migration.rb.tt
+#
+# This template comes from your local project under lib/rails/generators/active_record/migration/templates/create_table_migration.rb.tt.
+# It is based on Rails 7.1. If your Rails version diverges, please note that the generator is outdated, and changes might be made.
+#
+class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+<% if ["SQLite", "Mysql2"].include?(ActiveRecord::Base.connection.adapter_name) -%>
+    create_table :<%= table_name %>, id: false do |t|
+      t.binary :<%= UuidV7.configuration.field_name %>, limit: 16, null: false, index: { unique: true }, primary_key: true
+<% else -%>
+    create_table :<%= table_name %><%= primary_key_type %> do |t|
+<% end -%>
+<% attributes.each do |attribute| -%>
+<% if attribute.password_digest? -%>
+      t.string :password_digest<%= attribute.inject_options %>
+<% elsif attribute.token? -%>
+      t.string :<%= attribute.name %><%= attribute.inject_options %>
+<% elsif attribute.reference? -%>
+<% if ["SQLite", "Mysql2"].include?(ActiveRecord::Base.connection.adapter_name) -%>
+<% if UuidV7.configuration.field_name == :id -%>
+      t.references :<%= attribute.name %>, foreign_key: true, index: true, type: :binary, limit: 16, null: false
+<% else -%>
+      t.binary :<%= attribute.name %>_id, null: false, limit: 16
+      t.foreign_key :<%= attribute.name %>s, column: :<%= attribute.name %>_id, primary_key: :<%= UuidV7.configuration.field_name %>
+      t.index :<%= attribute.name %>_id
+<% end -%>
+<% else -%>
+      t.<%= attribute.type %> :<%= attribute.name %><%= attribute.inject_options %><%= foreign_key_type %>
+<% end -%>
+<% elsif !attribute.virtual? -%>
+      t.<%= attribute.type %> :<%= attribute.name %><%= attribute.inject_options %>
+<% end -%>
+<% end -%>
+<% if options[:timestamps] %>
+      t.timestamps
+<% end -%>
+    end
+<% attributes.select(&:token?).each do |attribute| -%>
+    add_index :<%= table_name %>, :<%= attribute.index_name %><%= attribute.inject_index_options %>, unique: true
+<% end -%>
+<% attributes_with_index.each do |attribute| -%>
+    add_index :<%= table_name %>, :<%= attribute.index_name %><%= attribute.inject_index_options %>
+<% end -%>
+  end
+end

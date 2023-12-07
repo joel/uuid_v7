@@ -1,5 +1,7 @@
 name: Ruby
 
+run-name: ${{ github.actor }} is running this workflow
+
 on:
   push:
     branches:
@@ -9,14 +11,27 @@ on:
 
 jobs:
   build:
+    services:
+      mysql:
+        image: mysql:8.2.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     env:
-      MYSQL_PASSWORD: root
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_PORT: 3306
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby:
           - '3.2.2'
+        database:
+          - mysql
+          - sqlite3
 
     steps:
     - uses: actions/checkout@v4
@@ -24,8 +39,17 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Set up MySQL
-      run: sudo /etc/init.d/mysql start
+    -
+      name: Set Bundle
+      run: |
+        gem update --system
+        gem install bundler
+    -
+      name: Bundle Install
+      run: |
+        DATABASE=${{ matrix.database }} bundle install --jobs 4 --retry 3
+        bundle lock --add-platform x86_64-linux
+        bundle update
+
     - name: Run the default task
-      run: bundle exec rake
+      run: DATABASE=${{ matrix.database }} bundle exec rake
