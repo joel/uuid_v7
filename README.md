@@ -150,7 +150,13 @@ Then, run `DEBUG=true bundle exec rake`, this run the code against SQLite.
 
 For Mysql, please setup the database as follow:
 
-`docker run --rm --name mysql-uuid-v7-test --publish 3308:3306 --env MYSQL_ALLOW_EMPTY_PASSWORD=yes -d mysql:latest`
+```shell
+docker run --rm \
+  --name mysql-uuid-v7-test \
+  --publish 3308:3306 \
+  --env MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+  --detach mysql:latest
+```
 
 and run
 
