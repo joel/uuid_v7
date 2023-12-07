@@ -164,6 +164,12 @@ docker run --rm \
   --detach mysql:latest
 ```
 
+Create the databse:
+
+```shell
+docker exec mysql-uuid-v7-test bash -c "mysql -u root -e 'CREATE DATABASE IF NOT EXISTS uuid_v7_test;'"
+```
+
 and run
 
 `DEBUG=true MYSQL_HOST="0.0.0.0" MYSQL_PORT=3308 DATABASE=mysql bundle exec rake`
