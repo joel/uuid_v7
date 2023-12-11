@@ -2,6 +2,10 @@
 
 require "uuid_v7"
 
+UuidV7.configure do |config|
+  config.field_name = :uuid
+end
+
 ENV["RAILS_ENV"] ||= "test"
 
 RSpec.configure do |config|

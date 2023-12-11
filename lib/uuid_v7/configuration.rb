@@ -5,7 +5,7 @@ module UuidV7
     attr_accessor :field_name, :implicit_inclusion_strategy
 
     def initialize
-      self.field_name = :uuid
+      self.field_name = :id
       self.implicit_inclusion_strategy = true
     end
   end
