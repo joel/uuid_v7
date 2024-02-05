@@ -15,7 +15,7 @@ module UuidV7
           SQL
 
           connection.exec_query <<~SQL.squish
-            CREATE FUNCTION uuid_v7 ()
+            CREATE FUNCTION uuid_v7 (time_of_creation DATETIME)
             RETURNS BINARY(16)
             LANGUAGE SQL
             NOT DETERMINISTIC
@@ -27,7 +27,7 @@ module UuidV7
               DECLARE currentTime   BIGINT;
               DECLARE buuid         BINARY(16);
 
-              SET currentTime = UNIX_TIMESTAMP() * 1000 + FLOOR(MICROSECOND(NOW(6)) / 1000);
+              SET currentTime = UNIX_TIMESTAMP(time_of_creation) * 1000 + FLOOR(MICROSECOND(NOW(6)) / 1000);
 
               SET uuid = LOWER(
                 CONCAT(
@@ -46,7 +46,7 @@ module UuidV7
           SQL
 
           connection.execute <<~SQL
-            UPDATE #{table_name} SET #{column_name} = uuid_v7() WHERE #{column_name} IS NULL;
+            UPDATE #{table_name} SET #{column_name} = uuid_v7(created_at) WHERE #{column_name} IS NULL;
           SQL
 
           connection.execute <<~SQL
