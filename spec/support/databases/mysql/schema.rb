@@ -27,5 +27,6 @@ ActiveRecord::Schema.define do
 
   create_table :apples, id: false do |table|
     table.binary :uuid_ref, limit: 16, null: true, index: { unique: true }
+    table.datetime :created_at
   end
 end
