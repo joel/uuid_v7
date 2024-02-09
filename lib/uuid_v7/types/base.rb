@@ -37,7 +37,11 @@ module UuidV7
         # To avoid SQL injection, verify that it looks like a UUID. ActiveRecord
         # does not explicity escape the Binary data type. escaping is implicit as
         # the Binary data type always converts its value to a hex string.
-        raise InvalidUUID, "#{value} is not a valid UUID" unless value.match?(/\A\h{8}-\h{4}-\h{4}-\h{4}-\h{12}\z/)
+        unless value.match?(/\A\h{8}-\h{4}-\h{4}-\h{4}-\h{12}\z/)
+          raise InvalidUUID, "#{value} is not a valid UUID" if UuidV7.configuration.throw_invalid_uuid
+
+          return nil
+        end
 
         return value if value.is_a?(Data)
 
