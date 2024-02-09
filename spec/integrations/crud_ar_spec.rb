@@ -65,6 +65,34 @@ RSpec.describe "ActiveRecord CRUD" do
       it "finds a record by UUID .where" do
         expect(record_class.where(uuid:).take).to eql(record)
       end
+
+      context "with a UUID that doesn't exist" do
+        it "return nil when record is not found" do
+          expect(record_class.find_by(uuid: SecureRandom.uuid_v7)).to be_nil
+        end
+
+        context "with invalid UUID" do
+          context "when UuidV7.configuration.throw_invalid_uuid is false" do
+            it "return nil" do
+              expect(
+                UuidV7.with(throw_invalid_uuid: false) do
+                  record_class.find_by(uuid: "invalid")
+                end
+              ).to be_nil
+            end
+          end
+
+          context "when UuidV7.configuration.throw_invalid_uuid is true" do
+            it "raises UuidV7::Types::InvalidUUID" do
+              expect do
+                UuidV7.with(throw_invalid_uuid: true) do
+                  record_class.find_by(uuid: "invalid")
+                end
+              end.to raise_error(UuidV7::Types::InvalidUUID, "invalid is not a valid UUID")
+            end
+          end
+        end
+      end
     end
 
     describe "update" do

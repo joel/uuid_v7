@@ -3,7 +3,6 @@
 module Alliantist
   module Migrations
     module UuidFkHelper
-
       # update_fk_uuid_between_table(parent_table_name: :engines, child_table_name: :pistons)
       def update_fk_uuid_between_table(parent_table_name:, child_table_name:)
         table_name_parent = parent_table_name.to_s.to_sym # :engines

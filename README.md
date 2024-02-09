@@ -99,6 +99,30 @@ end
 
 **Recommendation:** It's advised to use `:id` as the primary key with Rails for compatibility and convention.
 
+### Behaviours with Invalid UUIDs
+
+```ruby
+UuidV7.configure do |config|
+  config.throw_invalid_uuid = false
+end
+```
+
+```ruby
+record_class.find_by(uuid: "invalid")
+=> nil
+```
+
+```ruby
+UuidV7.configure do |config|
+  config.throw_invalid_uuid = true
+end
+```
+
+```ruby
+record_class.find_by(uuid: "invalid")
+raise_error(UuidV7::Types::InvalidUUID, "invalid is not a valid UUID")
+```
+
 ### Migrations
 
 #### Helper for Mysql
