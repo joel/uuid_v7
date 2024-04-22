@@ -15,7 +15,7 @@ gem "rubocop-rspec"
 database = ENV["DATABASE"] || "sqlite3"
 case database
 when "sqlite3"
-  gem "sqlite3", "~> 1.7"
+  gem "sqlite3", "~> 2.0"
 when "mysql"
   gem "mysql2", "~> 0.5.5"
 else
