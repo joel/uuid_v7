@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.1.3] - 2024-07-10
+
+- Fix Zeitwerk::NameError
+- Check if created_at is present
+
 ## [0.1.2] - 2024-02-09
 
 Configure The Behaviours When UUID Is Invalid

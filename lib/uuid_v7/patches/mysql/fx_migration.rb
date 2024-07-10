@@ -45,6 +45,13 @@ module UuidV7
             END
           SQL
 
+          # Check for NULL created_at values
+          result = connection.exec_query(<<~SQL)
+            SELECT COUNT(*) AS count FROM #{table_name} WHERE created_at IS NULL;
+          SQL
+
+          raise ActiveRecord::RecordInvalid, "There are records with NULL created_at in #{table_name}" if (result.rows[0][0]).positive?
+
           connection.execute <<~SQL
             UPDATE #{table_name} SET #{column_name} = uuid_v7(created_at) WHERE #{column_name} IS NULL;
           SQL
