@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '3.2.2'
+          - '3.3.3'
         database:
           - mysql
           - sqlite3
