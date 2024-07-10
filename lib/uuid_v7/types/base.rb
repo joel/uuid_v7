@@ -77,7 +77,7 @@ module UuidV7
         def initialize(value)
           @value = value
 
-          super(value)
+          super
         end
 
         def hex

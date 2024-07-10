@@ -11,7 +11,7 @@ module UuidV7
           let(:undashed_uuid) { uuid.delete("-") }
 
           it "serialize into Data object" do
-            expect(base_type.serialize(uuid)).is_a?(Data)
+            expect(base_type.serialize(uuid).is_a?(UuidV7::Types::Base::Data)).to be true
           end
 
           it "stripes the dashes" do
