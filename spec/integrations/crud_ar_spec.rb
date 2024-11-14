@@ -21,7 +21,7 @@ RSpec.describe "ActiveRecord CRUD" do
       when "mysql"
         expect do
           record_class.where(uuid: "' OR ''='").take
-        end.to raise_error(ActiveRecord::StatementInvalid, "UuidV7::Types::InvalidUUID: ' OR ''=' is not a valid UUID")
+        end.to raise_error(UuidV7::Types::InvalidUUID)
       else
         raise "Unknown database: #{ENV.fetch("DATABASE", nil)}"
       end
