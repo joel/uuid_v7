@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.homepage = "https://github.com/joel/uuid_v7"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.3.3"
+  spec.required_ruby_version = ">= 3.3" # 3 and above
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
 
-  spec.add_dependency "activemodel", "~> 7.0"
-  spec.add_dependency "activesupport", "~> 7.0"
+  spec.add_dependency "activemodel", ">= 7.0" # 7 and above
+  spec.add_dependency "activesupport", ">= 7.0" # 7 and above
   spec.add_dependency "base58", "~> 0.2.3" # Used to convert between integers and base58 strings.
   spec.add_dependency "securerandom", "~> 0.3.0" # Needed for SecureRandom.uuid_v7 until we upgrade to Ruby 3.3
   spec.add_dependency "zeitwerk", "~> 2.5" # Used to autoload classes

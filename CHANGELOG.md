@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.4] - 2024-07-10
+
+- Relax Gem Spec Constraints
+
 ## [0.1.3] - 2024-07-10
 
 - Fix Zeitwerk::NameError

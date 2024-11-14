@@ -6,7 +6,7 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 3.3.3
+  TargetRubyVersion: 3.3
   NewCops: enable
 
 Style/StringLiterals:
