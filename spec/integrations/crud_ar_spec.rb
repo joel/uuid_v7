@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe "ActiveRecord CRUD" do
-  let(:uuid) { "018c16a5-334d-71cc-890e-816a036111f8" }
+  let(:uuid)         { "018c16a5-334d-71cc-890e-816a036111f8" }
   let(:record)       { record_class.new(uuid:, name: "ISO British/Irish") }
   let(:record_class) { Keyboard }
 
@@ -44,8 +44,8 @@ RSpec.describe "ActiveRecord CRUD" do
     before { record.save }
 
     it "stores a binary value in the database" do
-      first_row      = record_class.connection.execute("SELECT uuid FROM keyboards").to_a[0]
-      raw_uuid_value = first_row[0] # "uuid"
+      first_row      = record_class.connection.select_all("SELECT uuid FROM keyboards")[0]
+      raw_uuid_value = first_row["uuid"] # "uuid"
 
       expect(raw_uuid_value.encoding).to eql(Encoding::ASCII_8BIT)
     end
