@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.6] - 2025-03-16
+
+- Add the support of the DB adapter Trilogy https://github.com/trilogy-libraries/trilogy
+
 ## [0.1.5] - 2024-07-15
 
 - Rails 8.0 brings some changes, the data is correctly recorded as BINARY in SQLite, so we can simplify the code, but too stay compatible the code is less simple.

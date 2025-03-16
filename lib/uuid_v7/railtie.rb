@@ -17,6 +17,13 @@ module UuidV7
         ActiveSupport.on_load(:active_record) do
           ActiveRecord::Migration.include(Patches::Mysql::FxMigration) unless ActiveRecord::Migration.include?(Patches::Mysql::FxMigration)
         end
+      when "Trilogy"
+        require_relative "types/trilogy_type"
+        ActiveRecord::Type.register(:uuid_v7, UuidV7::Types::TrilogyType, adapter: :trilogy)
+
+        ActiveSupport.on_load(:active_record) do
+          ActiveRecord::Migration.include(Patches::Mysql::FxMigration) unless ActiveRecord::Migration.include?(Patches::Mysql::FxMigration)
+        end
       when "PostgreSQL"
         raise NotImplementedError, "PostgreSQL support native UUID type, no need for this gem."
       else
