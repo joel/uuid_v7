@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.6.1] - 2025-03-16
+
+- Update the lib/generators/uuid_v7/migrations/templates/create_table_migration.rb.tt to handle Trilogy.
+
 ## [0.1.6] - 2025-03-16
 
 - Add the support of the DB adapter Trilogy https://github.com/trilogy-libraries/trilogy
