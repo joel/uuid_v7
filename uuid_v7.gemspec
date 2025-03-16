@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activemodel", ">= 7.0" # 7 and above
   spec.add_dependency "activesupport", ">= 7.0" # 7 and above
   spec.add_dependency "base58", "~> 0.2.3" # Used to convert between integers and base58 strings.
-  spec.add_dependency "securerandom", "~> 0.3.0" # Needed for SecureRandom.uuid_v7 until we upgrade to Ruby 3.3
+  spec.add_dependency "securerandom", ">= 0.3", "< 0.5" # Needed for SecureRandom.uuid_v7 until we upgrade to Ruby 3.3
   spec.add_dependency "zeitwerk", "~> 2.5" # Used to autoload classes
 
   # spec.add_dependency "example-gem", "~> 1.0"
