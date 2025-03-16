@@ -5,7 +5,7 @@
 #
 class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
   def change
-<% if ["SQLite", "Mysql2"].include?(ActiveRecord::Base.connection.adapter_name) -%>
+<% if ["SQLite", "Mysql2", "Trilogy"].include?(ActiveRecord::Base.connection.adapter_name) -%>
     create_table :<%= table_name %>, id: false do |t|
       t.binary :<%= UuidV7.configuration.field_name %>, limit: 16, null: false, index: { unique: true }, primary_key: true
 <% else -%>
@@ -17,7 +17,7 @@ class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Mi
 <% elsif attribute.token? -%>
       t.string :<%= attribute.name %><%= attribute.inject_options %>
 <% elsif attribute.reference? -%>
-<% if ["SQLite", "Mysql2"].include?(ActiveRecord::Base.connection.adapter_name) -%>
+<% if ["SQLite", "Mysql2", "Trilogy"].include?(ActiveRecord::Base.connection.adapter_name) -%>
 <% if UuidV7.configuration.field_name == :id -%>
       t.references :<%= attribute.name %>, foreign_key: true, index: true, type: :binary, limit: 16, null: false
 <% else -%>
